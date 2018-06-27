@@ -100,5 +100,12 @@ public class Article {
 		}
 	}
 	
+	public static boolean incrementView(int id) {
+		return ArticleDao.incrementView(id);
+	}
+	
+	public boolean incrementLike() {
+		return ArticleDao.incrementLike(this);
+	}
 }
 

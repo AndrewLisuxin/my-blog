@@ -8,14 +8,14 @@
 <title>User</title>
 </head>
 <body>
-<a href="/my-blog/index.jsp">Home</a>
+<a href="<%=response.encodeURL("/my-blog/index.jsp") %>">Home</a>
 <hr/>
 <%
 User user = (User)session.getAttribute("user");
 %>
 email: <%=user.getEmail() %>
 <br>
-<form action="../UpdateUserServlet" method="post" enctype="multipart/form-data">
+<form action="<%=response.encodeURL("../UpdateUserServlet") %>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 	username: <input type="text" name="username" value="<%=user.getUsername()%>" required>
 	<br>
 	password: <input type="text" name="password" value="<%=user.getPassword()%>" required>

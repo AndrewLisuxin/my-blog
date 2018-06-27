@@ -51,6 +51,7 @@ public class UpdateUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
 		DiskFileItemFactory factory = new DiskFileItemFactory(1024 * 10, (File)ctx.getAttribute("tmpDir"));
 		ServletFileUpload uploader = new ServletFileUpload(factory);
 		uploader.setSizeMax(1024 * 1024 * 2);
@@ -80,13 +81,22 @@ public class UpdateUserServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect("index.jsp");
+		response.sendRedirect(response.encodeRedirectURL("index.jsp"));
 	}
 
 	protected void parseFormItem(FileItem item, User user) {
 		if(item.getSize() > 0) {
 			String name = item.getFieldName();
-			String value = item.getString();
+			String value;
+			try {
+				/* every multipart/form data has a content type, and request will parse it as "iso-8859-1" by default 
+				 * even if the conf of server.xml and filter set is UTF-8*/
+				value = item.getString("UTF-8");
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			
+			System.out.println(name + ": " + value);
 			if(name.equals("username")) {
 				user.setUsername(value);
 			} else if(name.equals("password")) {

@@ -11,15 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.suxinli.model.Article;
 
 /**
- * Servlet implementation class CreateArticleServlet
+ * Servlet implementation class LikeArticleServlet
  */
-public class CreateArticleServlet extends HttpServlet {
+public class LikeArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateArticleServlet() {
+    public LikeArticleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,18 +38,10 @@ public class CreateArticleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		Article article = new Article();
-		article.setTitle(request.getParameter("title"));
-		article.setContent(request.getParameter("content"));
-		int id;
-		if((id = article.addArticle()) != -1) {
-			RequestDispatcher rd = request.getRequestDispatcher("/ViewArticleServlet?id=" +  id);
-			rd.forward(request, response);
-		}
-		else {
-			response.sendRedirect(response.encodeRedirectURL("index.jsp"));
-		}
-		
+		Article article = (Article)request.getSession(false).getAttribute("article");
+		article.incrementLike();
+		RequestDispatcher rd = request.getRequestDispatcher("/ViewArticleServlet?id=" +  article.getId());
+		rd.forward(request, response);
 	}
 
 }

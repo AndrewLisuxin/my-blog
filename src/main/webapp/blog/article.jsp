@@ -17,11 +17,13 @@ User me = (User)request.getSession().getAttribute("user");
 <title>suxinli--<%=article.getTitle() %></title>
 </head>
 <body>
-<a href="index.jsp">Home</a>
+<a href="<%=response.encodeURL("index.jsp") %>">Home</a>
 <article>
 <h3><%=article.getTitle() %></h3>
 <h5>
-publish time: <%=time %></h5>
+publish time: <%=time %> views(<%=article.getVisit() %>) likes(<%=article.getLike() %>) 
+</h5>
+<form action="<%=response.encodeRedirectURL("LikeArticleServlet") %>" method="post"><input type="submit" value="like"></form>
 <hr>
 <br>
 <p>
@@ -36,20 +38,21 @@ publish time: <%=time %></h5>
 
 <h4>Comments</h4>
 <hr/>
+<!-- the jsp page is dispatchered from ViewArticleServlet, so the current dir is context root -->
 <%
 List<Comment> comments = (List<Comment>)request.getAttribute("comments");
 if(comments != null) {
 	for(Comment comment : comments) {
 		User user = comment.getUser();
 %>
-		<B><%=user.getUsername() %></B> <%= ft.format(comment.getCreateTime()) %> 
+		<B><%=user.getUsername() %></B> <%= ft.format(comment.getCreateTime()) %> from <%=user.getCity() %>
 		<br>
 		<img src="ProfileServlet?profile=<%=user.getImage()%>" width="50" height="50">
 		<%=comment.getContent() %>
 		<%
 		if(me != null && user.getId() == me.getId()) {
 		%>
-		<form action=<%="DeleteCommentServlet?id=" + comment.getId()%> method="post">
+		<form action="<%=response.encodeURL("DeleteCommentServlet?id=" + comment.getId())%>" method="post">
 			<input type="submit" value="delete">
 		</form>
 		<%
@@ -66,7 +69,7 @@ if(comments != null) {
 <br>
 <br>
 <br>
-<form action="CreateCommentServlet" method="post" id="comment" accept-charset="UTF-8">
+<form action="<%=response.encodeURL("CreateCommentServlet")%>" method="post" id="comment">
 <input type="submit" value="submit"
 <%
 if(request.getSession().getAttribute("user") == null) {

@@ -37,7 +37,7 @@ public class DeleteArticleServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		Article.deleteArticle(Integer.parseInt(request.getParameter("id")));
-		response.sendRedirect("index.jsp");
+		response.sendRedirect(response.encodeRedirectURL("index.jsp"));
 	}
 
 }

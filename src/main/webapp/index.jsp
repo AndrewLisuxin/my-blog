@@ -49,7 +49,7 @@ else {
 <%
 if(isAdmin) {
 %>
-	<a href="<%=response.encodeURL("blog/newArticle.html")%>">write a new article</a>
+	<a href="<%=response.encodeURL("blog/newArticle.jsp")%>">write a new article</a>
 <% 
 }
 %>
@@ -62,7 +62,7 @@ if(isAdmin) {
 		int id = articleItem.getKey();
 		%>
 		<li>
-			<a href="ViewArticleServlet?id=<%=id %>"><%=articleItem.getValue() %></a>
+			<a href="<%=response.encodeURL("ViewArticleServlet?id="+id) %>"><%=articleItem.getValue() %></a>
 			<%
 			if(isAdmin) {
 			%>

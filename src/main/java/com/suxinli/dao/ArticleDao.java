@@ -101,4 +101,36 @@ public class ArticleDao extends BaseDao {
 			}
 		});
 	}
+	
+	public static Boolean incrementView(final int id) {
+		return execute(new Operation<Boolean>() {
+			public Boolean doOperation(Connection connection) {
+				try {
+					PreparedStatement statement = connection.prepareStatement("UPDATE articles SET visit_time = visit_time + 1 WHERE id=?");
+					statement.setInt(1, id);
+					statement.executeUpdate();
+					return true;
+				} catch(SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		});
+	}
+	
+	public static Boolean incrementLike(final Article article) {
+		return execute(new Operation<Boolean>() {
+			public Boolean doOperation(Connection connection) {
+				try {
+					PreparedStatement statement = connection.prepareStatement("UPDATE articles SET like_time = like_time + 1 WHERE id=?");
+					statement.setInt(1, article.getId());
+					statement.executeUpdate();
+					return true;
+				} catch(SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		});
+	}
 }

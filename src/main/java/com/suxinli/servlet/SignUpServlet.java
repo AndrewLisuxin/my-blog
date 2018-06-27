@@ -3,6 +3,7 @@ package com.suxinli.servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class SignUpServlet extends HttpServlet {
 					user.updateImage();
 				}
 			}
-			response.sendRedirect("index.jsp");
+			response.sendRedirect(response.encodeRedirectURL("index.jsp"));
 		}
 		else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/signup.html");
@@ -98,7 +99,13 @@ public class SignUpServlet extends HttpServlet {
 	protected void parseFormItem(FileItem item, User user) {
 		if(item.getSize() > 0) {
 			String name = item.getFieldName();
-			String value = item.getString();
+			String value;
+			try {
+				value = item.getString("UTF-8");
+			} catch(UnsupportedEncodingException e) {
+				throw new RuntimeException(e);
+			}
+			
 			if(name.equals("id")) {
 				user.setId(Integer.parseInt(value));
 			} else if(name.equals("email")) {
