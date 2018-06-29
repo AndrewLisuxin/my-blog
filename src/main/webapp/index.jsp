@@ -67,7 +67,7 @@ if(isAdmin) {
 			if(isAdmin) {
 			%>
 				<form action="<%=response.encodeURL("DeleteArticleServlet?id="+id) %>" method="post"><input type="submit" value="delete"></form>
-				<form action="<%=response.encodeURL("UpdateArticleServlet?id="+id) %>" method="post"><input type="submit" value="Edit"></form>
+				<a href="<%=response.encodeURL("UpdateArticleServlet?id="+id) %>"><button>edit</button></a>
 			<% 
 			}
 			%>

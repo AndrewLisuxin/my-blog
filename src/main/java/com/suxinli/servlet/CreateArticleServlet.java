@@ -29,7 +29,8 @@ public class CreateArticleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		throw new ServletException(getServletName() + " " + request.getMethod() + "is not supported!");
 	}
 
 	/**
@@ -41,14 +42,8 @@ public class CreateArticleServlet extends HttpServlet {
 		Article article = new Article();
 		article.setTitle(request.getParameter("title"));
 		article.setContent(request.getParameter("content"));
-		int id;
-		if((id = article.addArticle()) != -1) {
-			RequestDispatcher rd = request.getRequestDispatcher("/ViewArticleServlet?id=" +  id);
-			rd.forward(request, response);
-		}
-		else {
-			response.sendRedirect(response.encodeRedirectURL("index.jsp"));
-		}
+		int id = article.addArticle();
+		response.sendRedirect(response.encodeRedirectURL("ViewArticleServlet?id=" +  article.getId()));
 		
 	}
 

@@ -39,10 +39,11 @@ public class AdminFilter implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest)request;
+		HttpServletResponse rep = (HttpServletResponse)response;
 		if(req.getSession(false) == null 
 			|| req.getSession(false).getAttribute("user") == null 
 			|| !((User)req.getSession(false).getAttribute("user")).getEmail().equals(Configuration.get("admin_email"))) {
-			((HttpServletResponse)response).sendRedirect("../index.jsp");
+			rep.sendRedirect(rep.encodeRedirectURL("/my-blog/index.jsp"));
 			return;
 		}
 		// pass the request along the filter chain

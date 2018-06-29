@@ -21,16 +21,18 @@ public class Article {
 	private String title;
 	private String content;
 	private Date createTime;
+	private Date lastUpdateTime;
 	private int visit;
 	private int like;
 	
 	public Article() {}
 	
-	public Article(int id, String title, String content, Date createTime, int visit, int like) {
+	public Article(int id, String title, String content, Date createTime, Date lastUpdateTime, int visit, int like) {
 		setId(id);
 		setTitle(title);
 		setContent(content);
 		setCreateTime(createTime);
+		setLastUpdateTime(lastUpdateTime);
 		setVisit(visit);
 		setLike(like);
 	}
@@ -47,6 +49,9 @@ public class Article {
 	public void setCreateTime(Date createTime) { this.createTime = createTime; }
 	public Date getCreateTime() { return createTime; }
 	
+	public void setLastUpdateTime(Date lastUpdateTime) { this.lastUpdateTime = lastUpdateTime; }
+	public Date getLastUpdateTime() { return lastUpdateTime; }
+	
 	public void setVisit(int visit) { this.visit = visit; }
 	public int getVisit() { return visit; }
 	
@@ -55,11 +60,11 @@ public class Article {
 	
 	public int addArticle() {
 		int res = ArticleDao.addArticle(this);
-		if(res != -1) {
-			w.lock();
-			articleList.add(0, new Pair<Integer, String>(res, title));
-			w.unlock();
-		}
+		
+		w.lock();
+		articleList.add(0, new Pair<Integer, String>(res, title));
+		w.unlock();
+		
 		return res;
 		
 	}
@@ -83,29 +88,29 @@ public class Article {
 		return w;
 	}
 	
-	public static boolean deleteArticle(int id) {
-		if(ArticleDao.deleteArticle(id)) {
-			w.lock();
-			for(int i = 0; i < articleList.size(); ++i) {
-					if(articleList.get(i).getKey() == id) {
-						articleList.remove(i);
-						break;
-					}
+	public static void deleteArticle(int id) {
+		ArticleDao.deleteArticle(id);
+		w.lock();
+		for(int i = 0; i < articleList.size(); ++i) {	
+			if(articleList.get(i).getKey() == id) {
+				articleList.remove(i);	
+				break;
 			}
-			w.unlock();
-			return true;
 		}
-		else {
-			return false;
-		}
+		w.unlock();
+				
 	}
 	
-	public static boolean incrementView(int id) {
-		return ArticleDao.incrementView(id);
+	public static void incrementView(int id) {
+		ArticleDao.incrementView(id);
 	}
 	
-	public boolean incrementLike() {
-		return ArticleDao.incrementLike(this);
+	public void incrementLike() {
+		ArticleDao.incrementLike(this);
+	}
+	
+	public void updateArticle() {
+		ArticleDao.updateArticle(this);
 	}
 }
 

@@ -1,7 +1,6 @@
 package com.suxinli.dao;
 
 import java.sql.*;
-import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,18 +14,18 @@ import com.suxinli.orm.Operation;
 import javafx.util.Pair;
 
 public class CommentDao extends BaseDao {
-	public static Boolean addComment(final Comment comment) {
-		return execute(new Operation<Boolean>() {
-			public Boolean doOperation(Connection connection) {
+	public static Void addComment(final Comment comment) {
+		return execute(new Operation<Void>() {
+			public Void doOperation(Connection connection) throws SQLException {
 				try {
 					PreparedStatement statement = connection.prepareStatement("INSERT INTO comments(content, user_id, article_id) VALUES(?, ?, ?)");
 					statement.setString(1, comment.getContent());
 					statement.setInt(2, comment.getUser().getId());
 					statement.setInt(3, comment.getArticle().getId());
 					statement.executeUpdate();
-					return true;
+					return null;
 				} catch(SQLException e) {
-					return false;
+					throw new SQLException("the article does not exist any more!", e);
 				}
 				
 			}
@@ -38,7 +37,7 @@ public class CommentDao extends BaseDao {
 	 * */
 	public static List<Comment> SearchCommentsByArticle(final Article article) {
 		return execute(new Operation<List<Comment>>() {
-			public List<Comment> doOperation(Connection connection) {
+			public List<Comment> doOperation(Connection connection) throws SQLException  {
 				List<Comment> comments = null;
 				try {
 					PreparedStatement statement = connection.prepareStatement("SELECT * FROM comments WHERE article_id=? ORDER BY create_time ASC");
@@ -58,24 +57,25 @@ public class CommentDao extends BaseDao {
 					}
 					return comments;
 				} catch(SQLException e) {
-					e.printStackTrace();
-					return null;
+					throw new SQLException("search comment list failed!", e);
 				} 
 				
 			}
 		});
 	}
 	
-	public static Boolean deleteComment(final int id) {
-		return execute(new Operation<Boolean>() {
-			public Boolean doOperation(Connection connection) {
+	public static Void deleteComment(final int id) {
+		return execute(new Operation<Void>() {
+			public Void doOperation(Connection connection) throws SQLException {
 				try {
 					PreparedStatement statement = connection.prepareStatement("DELETE FROM comments WHERE id=?");
 					statement.setInt(1, id);
-					statement.executeUpdate();
-					return true;
+					if(statement.executeUpdate() > 0) {
+						return null;
+					};
+					throw new SQLException("the comment does not exist!");
 				} catch(SQLException e) {
-					return false;
+					throw new SQLException("delete comment failed!", e);
 				}
 				
 			}

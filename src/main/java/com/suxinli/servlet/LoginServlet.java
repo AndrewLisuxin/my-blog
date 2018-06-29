@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		throw new ServletException(getServletName() + " " + request.getMethod() + "is not supported!");
 	}
 
 	/**
@@ -66,10 +67,8 @@ public class LoginServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print("<font color='red'>invalid email or password!</font>");
 		}
-		/* dispatcher */
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-		rd.include(request, response);
-		
+		/* redirect */
+		response.sendRedirect(response.encodeRedirectURL("index.jsp"));
 		
 		
 	}

@@ -43,22 +43,18 @@ public class ViewArticleServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		Article article = Article.searchArticle(new Integer(request.getParameter("id")));
-		if(article != null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/blog/article.jsp");
-			request.setAttribute("article", article);
-			HttpSession session = request.getSession(false);
-			if(session != null) {
-				session.setAttribute("article", article);
-			}
-			
-			List<Comment> comments = Comment.SearchCommentsByArticle(article);
-			System.out.println(comments == null);
-			request.setAttribute("comments", comments);
-			rd.forward(request, response);
-		} 
-		else {
-			
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/blog/article.jsp");
+		request.setAttribute("article", article);
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			session.setAttribute("article", article);
 		}
+			
+		List<Comment> comments = Comment.SearchCommentsByArticle(article);
+		request.setAttribute("comments", comments);
+		rd.forward(request, response);
+		
 	}
 
 	/**

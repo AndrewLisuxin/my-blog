@@ -114,26 +114,26 @@ public class UserDao extends BaseDao {
 		return user;
 	}
 	
-	public static Boolean updateImage(final User user) {
-		return execute(new Operation<Boolean>() {
-			public Boolean doOperation(Connection connection) {
+	public static Void updateImage(final User user) {
+		return execute(new Operation<Void>() {
+			public Void doOperation(Connection connection) throws SQLException {
 				try {
 					PreparedStatement statement = connection.prepareStatement("UPDATE users SET image=? WHERE id=?");
 					statement.setString(1, user.getImage());
 					statement.setInt(2, user.getId());
 					statement.executeUpdate();
-					return true;
+					return null;
 				} catch(SQLException e) {
-					throw new RuntimeException(e);
+					throw new SQLException("Update image failed!", e);
 				}
 				
 			}
 		});
 	}
 	
-	public static Boolean updateUser(final User user) {
-		return execute(new Operation<Boolean>() {
-			public Boolean doOperation(Connection connection) {
+	public static Void updateUser(final User user) {
+		return execute(new Operation<Void>() {
+			public Void doOperation(Connection connection) throws SQLException {
 				try {
 					PreparedStatement statement = connection.prepareStatement("UPDATE users SET username=?, password=?, city=? WHERE id=?");
 					statement.setString(1, user.getUsername());
@@ -141,9 +141,9 @@ public class UserDao extends BaseDao {
 					statement.setString(3, user.getCity());
 					statement.setInt(4, user.getId());
 					statement.executeUpdate();
-					return true;
+					return null;
 				} catch(SQLException e) {
-					throw new RuntimeException(e);
+					throw new SQLException("update user infor failed!", e);
 				}
 				
 			}

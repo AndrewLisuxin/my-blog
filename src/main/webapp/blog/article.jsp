@@ -9,7 +9,8 @@
 <%
 Article article = (Article)request.getAttribute("article"); 
 SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-String time = ft.format(article.getCreateTime());
+String createTime = ft.format(article.getCreateTime());
+String lastUpdateTime = ft.format(article.getLastUpdateTime());
 User me = (User)request.getSession().getAttribute("user");
 %>
 <head>
@@ -21,7 +22,9 @@ User me = (User)request.getSession().getAttribute("user");
 <article>
 <h3><%=article.getTitle() %></h3>
 <h5>
-publish time: <%=time %> views(<%=article.getVisit() %>) likes(<%=article.getLike() %>) 
+create time: <%=createTime %> , last update time: <%=lastUpdateTime %>
+<br>
+views(<%=article.getVisit() %>) likes(<%=article.getLike() %>) 
 </h5>
 <form action="<%=response.encodeRedirectURL("LikeArticleServlet") %>" method="post"><input type="submit" value="like"></form>
 <hr>

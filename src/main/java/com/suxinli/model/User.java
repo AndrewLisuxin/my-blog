@@ -57,11 +57,11 @@ public class User {
 		return id;
 	}
 	
-	public boolean updateImage() {
-		return UserDao.updateImage(this);
+	public void updateImage() {
+		UserDao.updateImage(this);
 	}
 	
-	public boolean updateUser() {
-		return UserDao.updateUser(this);
+	public void updateUser() {
+		UserDao.updateUser(this);
 	}
 }

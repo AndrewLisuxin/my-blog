@@ -43,6 +43,7 @@ public class UpdateUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		throw new ServletException(getServletName() + " " + request.getMethod() + "is not supported!");
 	}
 
 	/**
@@ -72,8 +73,8 @@ public class UpdateUserServlet extends HttpServlet {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		if(user.updateUser() && profileItem != null && profileItem.getSize() > 0) {
+		user.updateUser();
+		if(profileItem != null && profileItem.getSize() > 0) {
 			String fileName = "" + user.getId() + ProfileUtil.getFileExtension(profileItem.getName());
 			if(ProfileUtil.uploadProfile(profileItem, (String)ctx.getAttribute("ultiPath"), fileName) && (user.getImage() == null || user.getImage().equals("default.png"))) {
 				user.setImage(fileName);

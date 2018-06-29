@@ -7,18 +7,11 @@ import com.suxinli.jdbc.ConnectionFactory;
 
 public abstract class BaseDao {
 	protected static <T> T execute(Operation<T> operation) {
-		Connection connection = null;
-		try {
-			connection = ConnectionFactory.getConnection();
+		//Connection connection = null;
+		try (Connection connection = ConnectionFactory.getConnection()) {
 			return operation.doOperation(connection);
-		} finally {
-			try {
-				if(connection != null) {
-					connection.close();
-				} 
-			} catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+		} catch(SQLException e) {
+            throw new RuntimeException("FAILURE!", e);     
 		}
 	}
 	

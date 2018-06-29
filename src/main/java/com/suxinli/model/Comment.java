@@ -36,15 +36,15 @@ public class Comment {
 	public void setArticle(Article article) { this.article = article; }
 	public Article getArticle() { return article; }
 	
-	public boolean addComment() {
-		return CommentDao.addComment(this);
+	public void addComment() {
+		CommentDao.addComment(this);
 	}
 	
 	public static List<Comment> SearchCommentsByArticle(Article article) {
 		return CommentDao.SearchCommentsByArticle(article);
 	}
 	
-	public static boolean deleteComment(int id) {
-		return CommentDao.deleteComment(id);
+	public static void deleteComment(int id) {
+		CommentDao.deleteComment(id);
 	}
 }

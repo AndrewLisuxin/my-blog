@@ -35,7 +35,8 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		throw new ServletException(getServletName() + " " + request.getMethod() + "is not supported!");
 	}
 
 	/**
@@ -51,11 +52,10 @@ public class LogoutServlet extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) {
 			for(Cookie cookie : cookies) {
-				String name = cookie.getName();
-				if(name.equals("email") || name.equals("password")) {
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				} 
+			
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+				
 			}
 		}
 		
