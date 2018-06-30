@@ -45,7 +45,7 @@ public class ProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		/* get the profile */
+		/* read the profile */
 		String fileName = request.getParameter("profile");
 		ProfileUtil.downloadProfile(response, (String)getServletContext().getAttribute("ultiPath"), fileName);
 		

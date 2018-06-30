@@ -25,7 +25,7 @@ if(user == null) {
 	password: <input type="password" name="password" required>
 	<input type="submit" value="log in">
 	</form> 
-	<a href="user/signup.html">sign up</a>
+	<a href="user/signup.jsp">sign up</a>
 <%
 }
 else {

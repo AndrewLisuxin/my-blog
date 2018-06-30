@@ -22,6 +22,6 @@ while(e != null) {
 %>
 </div>
 
-<a href="<%=response.encodeURL("index.jsp") %>">Home</a>
+<a href="<%=response.encodeURL("/my-blog/index.jsp") %>">Home</a>
 </body>
 </html>

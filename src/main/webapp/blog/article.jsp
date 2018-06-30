@@ -26,7 +26,17 @@ create time: <%=createTime %> , last update time: <%=lastUpdateTime %>
 <br>
 views(<%=article.getVisit() %>) likes(<%=article.getLike() %>) 
 </h5>
-<form action="<%=response.encodeRedirectURL("LikeArticleServlet") %>" method="post"><input type="submit" value="like"></form>
+<form action="<%=response.encodeRedirectURL("LikeArticleServlet") %>" method="post">
+	<input type="submit" value="like"
+	<%
+		if(me == null) {
+	%>
+			disabled
+	<%		
+		}
+	%>
+	>
+</form>
 <hr>
 <br>
 <p>
@@ -75,7 +85,7 @@ if(comments != null) {
 <form action="<%=response.encodeURL("CreateCommentServlet")%>" method="post" id="comment">
 <input type="submit" value="submit"
 <%
-if(request.getSession().getAttribute("user") == null) {
+if(me == null) {
 %>
 	disabled> <font color="red">you must log in before write a comment!</font>
 <%

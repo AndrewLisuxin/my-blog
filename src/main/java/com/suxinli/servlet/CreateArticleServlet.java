@@ -42,7 +42,7 @@ public class CreateArticleServlet extends HttpServlet {
 		Article article = new Article();
 		article.setTitle(request.getParameter("title"));
 		article.setContent(request.getParameter("content"));
-		int id = article.addArticle();
+		article.addArticle();
 		response.sendRedirect(response.encodeRedirectURL("ViewArticleServlet?id=" +  article.getId()));
 		
 	}

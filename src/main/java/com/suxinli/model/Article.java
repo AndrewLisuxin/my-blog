@@ -58,14 +58,14 @@ public class Article {
 	public void setLike(int like) { this.like = like; }
 	public int getLike() { return like; }
 	
-	public int addArticle() {
+	public void addArticle() {
 		int res = ArticleDao.addArticle(this);
-		
+		setId(res);
 		w.lock();
-		articleList.add(0, new Pair<Integer, String>(res, title));
+		articleList.add(0, new Pair<Integer, String>(id, title));
 		w.unlock();
 		
-		return res;
+		
 		
 	}
 	
@@ -111,6 +111,17 @@ public class Article {
 	
 	public void updateArticle() {
 		ArticleDao.updateArticle(this);
+		w.lock();
+		for(int i = 0; i < articleList.size(); ++i) {
+			Pair<Integer, String> item = articleList.get(i);
+			if(item.getKey() == id) {
+				if(!item.getValue().equals(title)) {
+					articleList.set(i, new Pair<Integer, String> (id, title));
+				}
+				break;
+			}
+		}
+		w.unlock();
 	}
 }
 

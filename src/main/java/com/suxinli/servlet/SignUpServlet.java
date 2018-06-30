@@ -89,7 +89,7 @@ public class SignUpServlet extends HttpServlet {
 			response.sendRedirect(response.encodeRedirectURL("index.jsp"));
 		}
 		else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/signup.html");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/signup.jsp");
 			PrintWriter out = response.getWriter();
 			out.println("<font color=red>The email has been registered.</font>");
 			rd.include(request, response);
