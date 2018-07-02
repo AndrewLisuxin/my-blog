@@ -42,7 +42,7 @@ public class Configuration {
 		}
 		
 		/* c dir to store profiles */
-		String tmpPath = Configuration.get("tmp_profile_dir");
+		String tmpPath = ctx.getRealPath(Configuration.get("tmp_profile_dir"));
     	File tmpDir = new File(tmpPath);
     	ctx.setAttribute("tmpPath", tmpPath);
     	ctx.setAttribute("tmpDir", tmpDir);
@@ -50,7 +50,7 @@ public class Configuration {
     		tmpDir.mkdirs();
     		System.out.println("create tmp dir: " + tmpPath);
     	}
-    	String ultiPath = Configuration.get("ultimate_profile_dir");
+    	String ultiPath = ctx.getRealPath(Configuration.get("ultimate_profile_dir"));
     	File ultiDir = new File(ultiPath);
     	ctx.setAttribute("ultiPath", ultiPath);
     	ctx.setAttribute("ultiDir", ultiDir);

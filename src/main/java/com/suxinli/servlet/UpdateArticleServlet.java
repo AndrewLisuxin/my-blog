@@ -45,7 +45,7 @@ public class UpdateArticleServlet extends HttpServlet {
 			article.setTitle(request.getParameter("title"));
 			article.setContent(request.getParameter("content"));
 			article.updateArticle();
-			response.sendRedirect(response.encodeRedirectURL("ViewArticleServlet?id=" + article.getId()));
+			response.sendRedirect(response.encodeRedirectURL("ViewArticle?id=" + article.getId()));
 		}
 		else {
 			throw new ServletException("Invalid operation!");

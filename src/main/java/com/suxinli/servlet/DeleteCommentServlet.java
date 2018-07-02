@@ -42,7 +42,7 @@ public class DeleteCommentServlet extends HttpServlet {
 		//doGet(request, response);
 		Comment.deleteComment(Integer.parseInt(request.getParameter("id")));
 		Article article = (Article)request.getSession(false).getAttribute("article");
-		RequestDispatcher rd = request.getRequestDispatcher("/ViewArticleServlet?id=" +  article.getId());
+		RequestDispatcher rd = request.getRequestDispatcher("/ViewArticle?id=" +  article.getId());
 		rd.forward(request, response);
 		
 	}

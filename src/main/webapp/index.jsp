@@ -17,10 +17,10 @@
 <div align="right">
 <% 
 User user = (User)session.getAttribute("user"); 
-boolean isAdmin = false;
+boolean isAdmin = (user != null && user.getEmail().equals(Configuration.get("admin_email")));
 if(user == null) {
 %>
-	<form action="LoginServlet" method="post">
+	<form action="Login" method="post">
 	email: <input type="email" name="email" required>
 	password: <input type="password" name="password" required>
 	<input type="submit" value="log in">
@@ -30,16 +30,14 @@ if(user == null) {
 }
 else {
 %>
-	<img src="ProfileServlet?profile=<%=user.getImage()%>" width="50" height="50">
+	<img src="Profile?profile=<%=user.getImage()%>" width="50" height="50">
 	<a href="<%=response.encodeURL("user/user.jsp") %>"><%=user.getUsername() %></a>
 
-	<form action="<%=response.encodeURL("LogoutServlet")%>" method="post">
+	<form action="<%=response.encodeURL("Logout")%>" method="post">
 	<input type="submit" value="logout">
 	</form>
 <% 
-	if(user.getEmail().equals(Configuration.get("admin_email"))) {
-		isAdmin = true;
-	}
+	
 }
 %>
 </div>
@@ -62,12 +60,12 @@ if(isAdmin) {
 		int id = articleItem.getKey();
 		%>
 		<li>
-			<a href="<%=response.encodeURL("ViewArticleServlet?id="+id) %>"><%=articleItem.getValue() %></a>
+			<a href="<%=response.encodeURL("ViewArticle?id="+id) %>"><%=articleItem.getValue() %></a>
 			<%
 			if(isAdmin) {
 			%>
-				<form action="<%=response.encodeURL("DeleteArticleServlet?id="+id) %>" method="post"><input type="submit" value="delete"></form>
-				<a href="<%=response.encodeURL("UpdateArticleServlet?id="+id) %>"><button>edit</button></a>
+				<form action="<%=response.encodeURL("DeleteArticle?id="+id) %>" method="post"><input type="submit" value="delete"></form>
+				<a href="<%=response.encodeURL("UpdateArticle?id="+id) %>"><button>edit</button></a>
 			<% 
 			}
 			%>

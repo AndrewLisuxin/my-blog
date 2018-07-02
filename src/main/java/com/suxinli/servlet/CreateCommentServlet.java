@@ -48,7 +48,7 @@ public class CreateCommentServlet extends HttpServlet {
 		Article article = (Article)request.getSession(false).getAttribute("article");
 		comment.setArticle(article);
 		comment.addComment();
-		RequestDispatcher rd = request.getRequestDispatcher("/ViewArticleServlet?id=" +  article.getId());
+		RequestDispatcher rd = request.getRequestDispatcher("/ViewArticle?id=" +  article.getId());
 		rd.forward(request, response);
 	}
 

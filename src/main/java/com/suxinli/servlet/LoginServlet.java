@@ -49,12 +49,13 @@ public class LoginServlet extends HttpServlet {
 		
 		if(user != null) {
 			System.out.println(user.getImage());
-			/* set session */
+			/* set session, if 30 minutes in inactive, then invalidate it */
+			/* notice session cookie will be delete immediately after the browser is closed */
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			session.setMaxInactiveInterval(30 * 60);
 			
-			/* add cookie for next auto-login */
+			/* add cookie for next auto-login after users close the browser, valid for 30 minutes */
 			Cookie emailCookie = new Cookie("email", email);
 			emailCookie.setMaxAge(30 * 60);
 			response.addCookie(emailCookie);
@@ -62,6 +63,7 @@ public class LoginServlet extends HttpServlet {
 			Cookie passwordCookie = new Cookie("password", password);
 			passwordCookie.setMaxAge(30 * 60);
 			response.addCookie(passwordCookie);
+			
 		}
 		else {
 			PrintWriter out = response.getWriter();

@@ -38,6 +38,7 @@ public class AutoLoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
+		/* requests will go through this filter before it can access any servlet or jsp */
 		HttpServletRequest req = (HttpServletRequest)request;
 		if(req.getSession(false) == null) {
 			String email = null;
@@ -56,6 +57,7 @@ public class AutoLoginFilter implements Filter {
 					if(user != null) {
 						HttpSession session = req.getSession();
 						session.setAttribute("user", user);
+						session.setMaxInactiveInterval(30 * 60);
 					}
 				}
 			}

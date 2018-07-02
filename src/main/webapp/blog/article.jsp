@@ -3,12 +3,16 @@
 <%@ page import="com.suxinli.model.*" %>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
-<%@ page import="java.io.*" %>
+<%@ page import="java.io.*" 
+	import="java.util.Calendar"
+	import="java.util.TimeZone"
+%>
 <!DOCTYPE html>
 <html>
 <%
 Article article = (Article)request.getAttribute("article"); 
 SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+ft.setTimeZone(Calendar.getInstance().getTimeZone());
 String createTime = ft.format(article.getCreateTime());
 String lastUpdateTime = ft.format(article.getLastUpdateTime());
 User me = (User)request.getSession().getAttribute("user");
@@ -26,7 +30,7 @@ create time: <%=createTime %> , last update time: <%=lastUpdateTime %>
 <br>
 views(<%=article.getVisit() %>) likes(<%=article.getLike() %>) 
 </h5>
-<form action="<%=response.encodeRedirectURL("LikeArticleServlet") %>" method="post">
+<form action="<%=response.encodeRedirectURL("LikeArticle") %>" method="post">
 	<input type="submit" value="like"
 	<%
 		if(me == null) {
@@ -60,12 +64,12 @@ if(comments != null) {
 %>
 		<B><%=user.getUsername() %></B> <%= ft.format(comment.getCreateTime()) %> from <%=user.getCity() %>
 		<br>
-		<img src="ProfileServlet?profile=<%=user.getImage()%>" width="50" height="50">
+		<img src="Profile?profile=<%=user.getImage()%>" width="50" height="50">
 		<%=comment.getContent() %>
 		<%
 		if(me != null && user.getId() == me.getId()) {
 		%>
-		<form action="<%=response.encodeURL("DeleteCommentServlet?id=" + comment.getId())%>" method="post">
+		<form action="<%=response.encodeURL("DeleteComment?id=" + comment.getId())%>" method="post">
 			<input type="submit" value="delete">
 		</form>
 		<%
@@ -82,7 +86,7 @@ if(comments != null) {
 <br>
 <br>
 <br>
-<form action="<%=response.encodeURL("CreateCommentServlet")%>" method="post" id="comment">
+<form action="<%=response.encodeURL("CreateComment")%>" method="post" id="comment">
 <input type="submit" value="submit"
 <%
 if(me == null) {

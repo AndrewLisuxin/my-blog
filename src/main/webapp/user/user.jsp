@@ -15,12 +15,12 @@ User user = (User)session.getAttribute("user");
 %>
 email: <%=user.getEmail() %>
 <br>
-<form action="<%=response.encodeURL("../UpdateUserServlet") %>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+<form action="<%=response.encodeURL("../UpdateUser") %>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 	username: <input type="text" name="username" value="<%=user.getUsername()%>" required>
 	<br>
 	password: <input type="text" name="password" value="<%=user.getPassword()%>" required>
 	<br>
-	profile: <img src="/my-blog/ProfileServlet?profile=<%=user.getImage()%>" width="100" height="100">
+	profile: <img src="/my-blog/Profile?profile=<%=user.getImage()%>" width="100" height="100">
 	<input type="file" name="profile">
 	<br>
 	city: <input type="text" name="city" value="<%=user.getCity()%>">

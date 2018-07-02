@@ -9,7 +9,7 @@
 <body>
 <a href="<%=response.encodeURL("/my-blog/index.jsp") %>">Home</a>
 <br>
-<form action="<%=response.encodeURL("../SignUpServlet") %>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+<form action="<%=response.encodeURL("../SignUp") %>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 	username: <input type="text" name="username" required>
 	<br>
 	email: <input type="email" name="email" required>

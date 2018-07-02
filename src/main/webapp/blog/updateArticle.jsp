@@ -14,7 +14,7 @@ Article article = (Article)request.getAttribute("article");
 <body>
 <a href="<%=response.encodeURL("/my-blog/index.jsp") %>">Home</a>
 <br>
-<form action="<%=response.encodeURL("/my-blog/UpdateArticleServlet")%>" method="post" id="article">
+<form action="<%=response.encodeURL("/my-blog/UpdateArticle")%>" method="post" id="article">
 title: <input type="text" name="title" value="<%=article.getTitle() %>"required>
 <input type="submit" value="update">
 </form>

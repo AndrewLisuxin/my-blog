@@ -168,52 +168,56 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>SignUpServlet</servlet-name>
-  	<url-pattern>/SignUpServlet</url-pattern>
+  	<url-pattern>/SignUp</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
-  	<url-pattern>/LoginServlet</url-pattern>
+  	<url-pattern>/Login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>LogoutServlet</servlet-name>
-  	<url-pattern>/LogoutServlet</url-pattern>
+  	<url-pattern>/Logout</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ViewArticleServlet</servlet-name>
-  	<url-pattern>/ViewArticleServlet</url-pattern>
+  	<url-pattern>/ViewArticle</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>DeleteArticleServlet</servlet-name>
-  	<url-pattern>/DeleteArticleServlet</url-pattern>
+  	<url-pattern>/DeleteArticle</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>UpdateArticleServlet</servlet-name>
-  	<url-pattern>/UpdateArticleServlet</url-pattern>
+  	<url-pattern>/UpdateArticle</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>CreateArticleServlet</servlet-name>
-  	<url-pattern>/CreateArticleServlet</url-pattern>
+  	<url-pattern>/CreateArticle</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>CreateCommentServlet</servlet-name>
-  	<url-pattern>/CreateCommentServlet</url-pattern>
+  	<url-pattern>/CreateComment</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>DeleteCommentServlet</servlet-name>
-  	<url-pattern>/DeleteCommentServlet</url-pattern>
+  	<url-pattern>/DeleteComment</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ProfileServlet</servlet-name>
-  	<url-pattern>/ProfileServlet</url-pattern>
+  	<url-pattern>/Profile</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>UpdateUserServlet</servlet-name>
-  	<url-pattern>/UpdateUserServlet</url-pattern>
+  	<url-pattern>/UpdateUser</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>LikeArticleServlet</servlet-name>
-  	<url-pattern>/LikeArticleServlet</url-pattern>
+  	<url-pattern>/LikeArticle</url-pattern>
   </servlet-mapping>
+  
+  <session-config>
+  	<session-timeout>30</session-timeout>
+  </session-config>
   
   <welcome-file-list>
   	<welcome-file>

@@ -41,7 +41,7 @@ public class LikeArticleServlet extends HttpServlet {
 		//doGet(request, response);
 		Article article = (Article)request.getSession(false).getAttribute("article");
 		article.incrementLike();
-		RequestDispatcher rd = request.getRequestDispatcher("/ViewArticleServlet?id=" +  article.getId());
+		RequestDispatcher rd = request.getRequestDispatcher("/ViewArticle?id=" +  article.getId());
 		rd.forward(request, response);
 	}
 

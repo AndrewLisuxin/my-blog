@@ -9,7 +9,7 @@
 <body>
 <a href="<%=response.encodeURL("../index.jsp") %>">Home</a>
 <br>
-<form action="<%=response.encodeURL("../CreateArticleServlet")%>" method="post" id="article_form"> 
+<form action="<%=response.encodeURL("../CreateArticle")%>" method="post" id="article_form"> 
 title
 <br>
 <input type="text" name="title" required>
