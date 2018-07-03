@@ -53,11 +53,17 @@ public class AutoLoginFilter implements Filter {
 					}
 				}
 				if(email != null && password != null) {
-					User user = User.login(email, password);
+					User user = User.checkUser(email, password);
 					if(user != null) {
+						
 						HttpSession session = req.getSession();
+						session.setMaxInactiveInterval(5 * 60);
 						session.setAttribute("user", user);
-						session.setMaxInactiveInterval(30 * 60);
+						
+						if(user.isLogged()) {
+							/* previous logged */
+							session.invalidate();
+						}
 					}
 				}
 			}

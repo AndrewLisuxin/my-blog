@@ -31,7 +31,7 @@ public class UserDao extends BaseDao {
 		});
 	}
 	
-	public static User login(final String email, final String password) {
+	public static User checkUser(final String email, final String password) {
 		return execute(new Operation<User>() {
 			public User doOperation(Connection connection) {
 				User user = null;

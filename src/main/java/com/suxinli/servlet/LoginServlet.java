@@ -2,6 +2,7 @@ package com.suxinli.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,32 +44,47 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		/* search user in db */
+		PrintWriter out = response.getWriter();
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		User user = User.login(email, password);
+		User user = User.checkUser(email, password);
 		
 		if(user != null) {
-			System.out.println(user.getImage());
-			/* set session, if 30 minutes in inactive, then invalidate it */
+			
+			/* set session, if 5 minutes in inactive, then invalidate it */
 			/* notice session cookie will be delete immediately after the browser is closed */
 			HttpSession session = request.getSession();
+			session.setMaxInactiveInterval(5 * 60);
+			
+			/* the HttpSessionBindingListener will automatically login this user */
 			session.setAttribute("user", user);
-			session.setMaxInactiveInterval(30 * 60);
 			
-			/* add cookie for next auto-login after users close the browser, valid for 30 minutes */
-			Cookie emailCookie = new Cookie("email", email);
-			emailCookie.setMaxAge(30 * 60);
-			response.addCookie(emailCookie);
+			if(user.isLogged()) {
+				/* previous logged */
+				session.invalidate();
+				printRepeatedLoginMsg(out);
+			}
+			else {
+				user.login();
+				/* add cookie for next auto-login after users close the browser, valid for 30 minutes */
+				Cookie emailCookie = new Cookie("email", email);
+				emailCookie.setMaxAge(30 * 60);
+				response.addCookie(emailCookie);
+				
+				Cookie passwordCookie = new Cookie("password", password);
+				passwordCookie.setMaxAge(30 * 60);
+				response.addCookie(passwordCookie);
+			}
 			
-			Cookie passwordCookie = new Cookie("password", password);
-			passwordCookie.setMaxAge(30 * 60);
-			response.addCookie(passwordCookie);
+			
 			
 		}
 		else {
-			PrintWriter out = response.getWriter();
-			out.print("<font color='red'>invalid email or password!</font>");
+			printNotFoundUserMsg(out);
 		}
+		
+		
+		
 		/* dispatcher */
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		rd.include(request, response);
@@ -77,4 +93,11 @@ public class LoginServlet extends HttpServlet {
 		
 	}
 
+	protected void printRepeatedLoginMsg(PrintWriter out) {
+		out.print("<font color='red'>the user has logged in somewhere else!</font>");
+	}
+	
+	protected void printNotFoundUserMsg(PrintWriter out) {
+		out.print("<font color='red'>invalid email or password!</font>");
+	}
 }
