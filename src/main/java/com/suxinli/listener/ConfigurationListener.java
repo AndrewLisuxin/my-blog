@@ -1,5 +1,9 @@
 package com.suxinli.listener;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -32,7 +36,15 @@ public class ConfigurationListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce)  { 
          // TODO Auto-generated method stub
     	Configuration.init(sce.getServletContext());
-    	Article.fetchArticles();
+    	
+    	ServletContext ctx = sce.getServletContext();
+    	/* initialize article cache list */
+    	ctx.setAttribute("articleList", Article.fetchArticles());
+    	ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+    	ctx.setAttribute("articleReadLock", rwl.readLock());
+    	ctx.setAttribute("articleWriteLock", rwl.writeLock());
+    	
+    	/* */
     }
 	
 }

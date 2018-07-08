@@ -2,6 +2,7 @@ package com.suxinli.model;
 
 import com.suxinli.dao.UserDao;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSessionBindingListener;
 
 import javafx.util.*;
 public class User implements HttpSessionBindingListener {
+	
 	/* avoid multiple-device log in one account
 	 * 
 	 * only the first log in of every account valid, 

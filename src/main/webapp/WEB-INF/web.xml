@@ -1,38 +1,28 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	     xmlns="http://java.sun.com/xml/ns/javaee" 
+	     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+	     version="3.0">
   <display-name>my-blog</display-name>
   <filter>
   	<filter-name>CharacterSetFilter</filter-name>
-  	<display-name>CharacterSetFilter</display-name>
-  	<description></description>
   	<filter-class>com.suxinli.filter.CharacterSetFilter</filter-class>
   </filter>
   <filter>
   	<filter-name>AutoLoginFilter</filter-name>
-  	<display-name>AutoLoginFilter</display-name>
-  	<description></description>
   	<filter-class>com.suxinli.filter.AutoLoginFilter</filter-class>
   </filter>
   <filter>
   	<filter-name>AdminFilter</filter-name>
-  	<display-name>AdminFilter</display-name>
-  	<description></description>
   	<filter-class>com.suxinli.filter.AdminFilter</filter-class>
   </filter>
   <filter>
   	<filter-name>RequestLoggingFilter</filter-name>
-  	<display-name>RequestLoggingFilter</display-name>
-  	<description></description>
   	<filter-class>com.suxinli.filter.RequestLoggingFilter</filter-class>
   </filter>
   
   <filter>
   	<filter-name>IncrementArticleViewFilter</filter-name>
-  	<display-name>IncrementArticleViewFilter</display-name>
-  	<description></description>
   	<filter-class>com.suxinli.filter.IncrementArticleViewFilter</filter-class>
   </filter>
   
@@ -96,74 +86,50 @@
   
   <servlet>
   	<servlet-name>SignUpServlet</servlet-name>
-  	<display-name>SignUpServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.SignUpServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
-  	<display-name>LoginServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.LoginServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>LogoutServlet</servlet-name>
-  	<display-name>LogoutServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.LogoutServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>ViewArticleServlet</servlet-name>
-  	<display-name>ViewArticleServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.ViewArticleServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>DeleteArticleServlet</servlet-name>
-  	<display-name>DeleteArticleServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.DeleteArticleServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>UpdateArticleServlet</servlet-name>
-  	<display-name>UpdateArticleServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.UpdateArticleServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>CreateArticleServlet</servlet-name>
-  	<display-name>CreateArticleServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.CreateArticleServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>CreateCommentServlet</servlet-name>
-  	<display-name>CreateCommentServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.CreateCommentServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>DeleteCommentServlet</servlet-name>
-  	<display-name>DeleteCommentServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.DeleteCommentServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>ProfileServlet</servlet-name>
-  	<display-name>ProfileServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.ProfileServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>UpdateUserServlet</servlet-name>
-  	<display-name>UpdateUserServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.UpdateUserServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>LikeArticleServlet</servlet-name>
-  	<display-name>LikeArticleServlet</display-name>
-  	<description></description>
   	<servlet-class>com.suxinli.servlet.LikeArticleServlet</servlet-class>
   </servlet>
   <servlet-mapping>

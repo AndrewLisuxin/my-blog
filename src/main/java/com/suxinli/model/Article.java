@@ -11,10 +11,7 @@ import com.suxinli.dao.ArticleDao;
 import javafx.util.Pair;
 
 public class Article {
-	private static List<Pair<Integer, String>> articleList;
-	private static final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
-    private static final Lock r = rwl.readLock();
-    private static final Lock w = rwl.writeLock();
+
 	
     
 	private int id;
@@ -61,44 +58,24 @@ public class Article {
 	public void addArticle() {
 		int res = ArticleDao.addArticle(this);
 		setId(res);
-		w.lock();
-		articleList.add(0, new Pair<Integer, String>(id, title));
-		w.unlock();
+		
 		
 		
 		
 	}
 	
-	public static void fetchArticles() {
-		articleList = ArticleDao.fetchArticles();
+	public static List<Pair<Integer, String>> fetchArticles() {
+		return ArticleDao.fetchArticles();
 	}
 	
 	public static Article searchArticle(int id) {
 		return ArticleDao.searchArticle(id);
 	}
 	
-	public static List<Pair<Integer, String>> getArticleList( ) {
-		return articleList;
-	}
 	
-	public static Lock getReadLock() {
-		return r;
-	}
-	public static Lock getWriteLock() {
-		return w;
-	}
 	
 	public static void deleteArticle(int id) {
-		ArticleDao.deleteArticle(id);
-		w.lock();
-		for(int i = 0; i < articleList.size(); ++i) {	
-			if(articleList.get(i).getKey() == id) {
-				articleList.remove(i);	
-				break;
-			}
-		}
-		w.unlock();
-				
+		ArticleDao.deleteArticle(id);		
 	}
 	
 	public static void incrementView(int id) {
@@ -111,17 +88,6 @@ public class Article {
 	
 	public void updateArticle() {
 		ArticleDao.updateArticle(this);
-		w.lock();
-		for(int i = 0; i < articleList.size(); ++i) {
-			Pair<Integer, String> item = articleList.get(i);
-			if(item.getKey() == id) {
-				if(!item.getValue().equals(title)) {
-					articleList.set(i, new Pair<Integer, String> (id, title));
-				}
-				break;
-			}
-		}
-		w.unlock();
 	}
 }
 

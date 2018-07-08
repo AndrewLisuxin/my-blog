@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    session="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <title>Sign Up</title>
 </head>
 <body>
-<a href="<%=response.encodeURL("/my-blog/index.jsp") %>">Home</a>
+<!-- c:url implements url rewriting -->
+<a href='<c:url value="/index.jsp"/>'>Home</a>
 <br>
-<form action="<%=response.encodeURL("../SignUp") %>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+<form action='<c:url value="/SignUp"/>' method="post" enctype="multipart/form-data" accept-charset="utf-8">
 	username: <input type="text" name="username" required>
 	<br>
 	email: <input type="email" name="email" required>

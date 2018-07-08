@@ -60,6 +60,7 @@ public class Configuration {
     	}
 		//ftlConfiguration = new freemarker.template.Configuration(new Version(2, 3, 22));
 	
+    	ctx.setAttribute("adminEmail", Configuration.get("admin_email"));
 	}
 	
 	
@@ -70,5 +71,9 @@ public class Configuration {
 	
 	public static String get(String key) {
 		return properties.getProperty(key);
+	}
+	
+	public static Properties getProperties() {
+		return properties;
 	}
 }
