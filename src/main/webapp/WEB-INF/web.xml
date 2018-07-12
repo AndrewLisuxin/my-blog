@@ -200,4 +200,11 @@
   	<exception-type>java.lang.Exception</exception-type>
   	<location>/error/error.jsp</location>
   </error-page>
+  
+  <jsp-config>
+  	<taglib>
+  		<taglib-uri>http://suxinli.com/jsp/tlds/mytags</taglib-uri>
+  		<taglib-location>/WEB-INF/timeformatter.tld</taglib-location>
+  	</taglib>
+  </jsp-config>
 </web-app>

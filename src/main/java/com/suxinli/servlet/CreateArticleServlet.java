@@ -51,9 +51,9 @@ public class CreateArticleServlet extends HttpServlet {
 		
 		article.addArticle();
 		
-		((WriteLock)ctx.getAttribute("articleReadLock")).lock();
+		((WriteLock)ctx.getAttribute("articleWriteLock")).lock();
 		((List<Pair<Integer, String>>)ctx.getAttribute("articleList")).add(0, new Pair<Integer, String>(article.getId(), article.getTitle()));
-		((WriteLock)ctx.getAttribute("articleReadLock")).unlock();
+		((WriteLock)ctx.getAttribute("articleWriteLock")).unlock();
 		
 		response.sendRedirect(response.encodeRedirectURL("ViewArticle?id=" +  article.getId()));
 		

@@ -6,6 +6,7 @@
 <%@ page import="java.util.concurrent.locks.*"%>
 <%@ page import="java.util.concurrent.locks.ReentrantReadWriteLock.*" %>
 <%@ page import="java.io.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +18,10 @@
 <!-- check if the user has logged in -->
 <div align="right">
 
-<c:set var="logged" value="${sessionScope.user ne null }" scope="request"></c:set>
-<c:set var="isAdmin" value="${requestScope.logged and sessionScope.user.email eq applicationScope.adminEmail }" scope="session"></c:set>
+<c:set var="logged" value="${sessionScope.user ne null }"></c:set>
+<c:set var="isAdmin" value="${logged and sessionScope.user.email eq applicationScope.adminEmail }"></c:set>
 <c:choose>
-	<c:when test="${not requestScope.logged }">
+	<c:when test="${not logged }">
 		<form action="Login" method="post">
 		email: <input type="email" name="email" required>
 		password: <input type="password" name="password" required>
@@ -29,9 +30,10 @@
 		<a href="user/signup.jsp">sign up</a>
 	</c:when>
 	<c:otherwise>
-		<jsp:useBean id="user" type="com.suxinli.model.User" scope="session"/>
-		<img src="Profile?profile=<jsp:getProperty name='user' property='image'/>" width="50" height="50">
-		<a href="<c:url value='/user/user.jsp'/>"><jsp:getProperty name='user' property='username'/></a>
+	<%-- session = "false", then cannot use the session implicit object --%>
+		
+		<img src="Profile?profile=${sessionScope.user.image }" width="50" height="50">
+		<a href="<c:url value='/user/user.jsp'/>">${sessionScope.user.username }</a>
 
 		<form action='<c:url value="/Logout"></c:url>' method="post">
 		<input type="submit" value="logout">
@@ -44,7 +46,7 @@
 
 <h3>Articles</h3>
 
-<c:if test="${sessionScope.isAdmin }">
+<c:if test="${isAdmin }">
 	<a href="<c:url value='/blog/newArticle.jsp'/>">write a new article</a>
 </c:if>
 
@@ -58,7 +60,7 @@
 	<c:forEach items="${applicationScope.articleList }" var="articleItem">
 		<li>
 			<a href='<c:url value="ViewArticle?id=${articleItem.key }"/>'>${articleItem.value }</a>
-			<c:if test="${sessionScope.isAdmin }">
+			<c:if test="${isAdmin }">
 				<form action='<c:url value="DeleteArticle?id=${articleItem.key }"/>' method="post"><input type="submit" value="delete"></form>
 				<a href='<c:url value="UpdateArticle?id=${articleItem.key }"/>'><button>edit</button></a>
 			</c:if>

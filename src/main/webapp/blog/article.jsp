@@ -3,49 +3,45 @@
 <%@ page import="com.suxinli.model.*" %>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
-<%@ page import="java.io.*" 
-	import="java.util.Calendar"
-	import="java.util.TimeZone"
+<%@ page import="java.io.*,java.util.Calendar,java.util.TimeZone"
 %>
 <!DOCTYPE html>
 <html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://suxinli.com/jsp/tlds/mytags" prefix="mytags" %>
 <%
 Article article = (Article)request.getAttribute("article"); 
 SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 ft.setTimeZone(Calendar.getInstance().getTimeZone());
 String createTime = ft.format(article.getCreateTime());
 String lastUpdateTime = ft.format(article.getLastUpdateTime());
-User me = (User)request.getSession().getAttribute("user");
+//User me = (User)request.getSession().getAttribute("user");
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>suxinli--<%=article.getTitle() %></title>
+<title>suxinli--${article.title }</title>
 </head>
 <body>
-<a href="<%=response.encodeURL("index.jsp") %>">Home</a>
+<a href='<c:url value="/index.jsp"></c:url>'>Home</a>
 <article>
-<h3><%=article.getTitle() %></h3>
+<h3>${article.title }</h3>
 <h5>
-create time: <%=createTime %> , last update time: <%=lastUpdateTime %>
+create time: <mytags:formatTime time="${article.createTime }"/> , last update time: <mytags:formatTime time="${article.lastUpdateTime }"/>
 <br>
-views(<%=article.getVisit() %>) likes(<%=article.getLike() %>) 
+views(${article.visit }) likes(${article.like }) 
 </h5>
-<form action="<%=response.encodeRedirectURL("LikeArticle") %>" method="post">
+<form action='<c:url value="/LikeArticle"></c:url>' method="post">
 	<input type="submit" value="like"
-	<%
-		if(me == null) {
-	%>
-			disabled
-	<%		
-		}
-	%>
+	<c:if test="${sessionScope.user eq null }">
+		disabled
+	</c:if>
 	>
 </form>
 <hr>
 <br>
-<p>
-<%=article.getContent() %>
-</p>
+
+<pre>${article.content }</pre>
+
 </article>
 
 <br>
@@ -56,52 +52,39 @@ views(<%=article.getVisit() %>) likes(<%=article.getLike() %>)
 <h4>Comments</h4>
 <hr/>
 <!-- the jsp page is dispatchered from ViewArticleServlet, so the current dir is context root -->
-<%
-List<Comment> comments = (List<Comment>)request.getAttribute("comments");
-if(comments != null) {
-	for(Comment comment : comments) {
-		User user = comment.getUser();
-%>
-		<B><%=user.getUsername() %></B> <%= ft.format(comment.getCreateTime()) %> from <%=user.getCity() %>
+<c:if test="${requestScope.comments ne null }">
+	<c:forEach items="${requestScope.comments }" var="comment">
+		<b>${comment.user.username }</b> <mytags:formatTime time="${comment.createTime }"/> from ${comment.user.city }
 		<br>
-		<img src="Profile?profile=<%=user.getImage()%>" width="50" height="50">
-		<%=comment.getContent() %>
-		<%
-		if(me != null && user.getId() == me.getId()) {
-		%>
-		<form action="<%=response.encodeURL("DeleteComment?id=" + comment.getId())%>" method="post">
-			<input type="submit" value="delete">
+		<img src="Profile?profile=${comment.user.image }" width="50" height="50">
+		<pre>${comment.content }</pre>
+		<c:if test="${sessionScope.user ne null and sessionScope.user.id eq comment.user.id}">
+			<form action="<c:url value='/DeleteComment?id=${comment.id }'/>" method="post">
+				<input type="submit" value="delete">
+			</form>
+		</c:if>
+		<hr>
+	</c:forEach>
+</c:if>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<c:choose>
+	<c:when test="${sessionScope.user ne null }">
+		<form action='<c:url value="/CreateComment"></c:url>' method="post" id="comment">
+			<input type="submit" value="submit">
 		</form>
-		<%
-		}
-		%>
-		<hr/>
-		
-<% 
-	}
-}
-%>
+		<textarea name="content" form="comment" required></textarea>
+	</c:when>
+	<c:otherwise>
+		<font color="red">you must log in before write a comment!</font>
+	</c:otherwise>
+</c:choose>
 
-<br>
-<br>
-<br>
-<br>
-<form action="<%=response.encodeURL("CreateComment")%>" method="post" id="comment">
-<input type="submit" value="submit"
-<%
-if(me == null) {
-%>
-	disabled> <font color="red">you must log in before write a comment!</font>
-<%
-}
-else {
-%>
-	>
-<%
-}
-%>
-
-</form>
-<textarea name="content" form="comment" required></textarea>
 </body>
 </html>

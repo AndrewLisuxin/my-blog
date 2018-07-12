@@ -47,7 +47,7 @@ public class DeleteArticleServlet extends HttpServlet {
 		Article.deleteArticle(id);
 		
 		ServletContext ctx = getServletContext();
-		((WriteLock)ctx.getAttribute("articleReadLock")).lock();
+		((WriteLock)ctx.getAttribute("articleWriteLock")).lock();
 		List<Pair<Integer, String>> articleList = (List<Pair<Integer, String>>)ctx.getAttribute("articleList");
 		for(int i = 0; i < articleList.size(); ++i) {	
 			if(articleList.get(i).getKey() == id) {
@@ -55,7 +55,7 @@ public class DeleteArticleServlet extends HttpServlet {
 				break;
 			}
 		}
-		((WriteLock)ctx.getAttribute("articleReadLock")).unlock();
+		((WriteLock)ctx.getAttribute("articleWriteLock")).unlock();
 		
 		response.sendRedirect(response.encodeRedirectURL("index.jsp"));
 	}
