@@ -9,14 +9,7 @@
 <html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://suxinli.com/jsp/tlds/mytags" prefix="mytags" %>
-<%
-Article article = (Article)request.getAttribute("article"); 
-SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-ft.setTimeZone(Calendar.getInstance().getTimeZone());
-String createTime = ft.format(article.getCreateTime());
-String lastUpdateTime = ft.format(article.getLastUpdateTime());
-//User me = (User)request.getSession().getAttribute("user");
-%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>suxinli--${article.title }</title>
