@@ -52,10 +52,10 @@
 
 <ul>
 
-
-<%	
+${applicationScope.articleReadLock.lock() }
+<%--
 ((ReadLock)application.getAttribute("articleReadLock")).lock();
-%>
+--%>
 
 	<c:forEach items="${applicationScope.articleList }" var="articleItem">
 		<li>
@@ -66,10 +66,11 @@
 			</c:if>
 		</li>
 	</c:forEach>
-		
-<%
+${applicationScope.articleReadLock.unlock() }	
+	
+<%--
 ((ReadLock)application.getAttribute("articleReadLock")).unlock();
-%>
+--%>
 </ul>
 </body>
 </html>
