@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    session="false"%>
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,8 +10,10 @@
 </head>
 <body>
 <!-- c:url implements url rewriting -->
-<a href='<c:url value="/index.jsp"/>'>Home</a>
 <br>
+<c:if test="${sessionScope.lastVisitUrl eq null }">
+	<c:set var="lastVisitUrl" value="/my-blog/index.jsp" scope="session"></c:set>
+</c:if>
 <form action='<c:url value="/SignUp"/>' method="post" enctype="multipart/form-data" accept-charset="utf-8">
 	username: <input type="text" name="username" required>
 	<br>
@@ -25,5 +27,6 @@
 	<br>
 	<input type="submit" value="sign up">
 </form>
+<%@ include file="/footer/footer.jsp" %>
 </body>
 </html>

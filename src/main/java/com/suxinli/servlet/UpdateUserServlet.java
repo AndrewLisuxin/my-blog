@@ -82,7 +82,7 @@ public class UpdateUserServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect(response.encodeRedirectURL("index.jsp"));
+		response.sendRedirect(response.encodeRedirectURL((String)request.getSession(false).getAttribute("lastVisitUrl")));
 	}
 
 	protected void parseFormItem(FileItem item, User user) {

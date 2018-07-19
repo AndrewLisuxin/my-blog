@@ -41,16 +41,17 @@ public class ViewArticleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		Article article = Article.searchArticle(new Integer(request.getParameter("id")));
+		int id = new Integer(request.getParameter("id"));
+		Article article = Article.searchArticle(id);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/blog/article.jsp");
 		request.setAttribute("article", article);
 		HttpSession session = request.getSession(false);
-		if(session != null) {
+		//if(session != null) {
 			session.setAttribute("article", article);
-		}
-			
+		//}
+		session.setAttribute("lastVisitUrl", "/my-blog/ViewArticle?id=" + id);
+		
 		List<Comment> comments = Comment.SearchCommentsByArticle(article);
 		request.setAttribute("comments", comments);
 		rd.forward(request, response);

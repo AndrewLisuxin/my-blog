@@ -45,8 +45,13 @@ public class LogoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		/*
 		HttpSession session = request.getSession(false);
 		session.invalidate();
+		*/
+		HttpSession session = request.getSession(false);
+		session.removeAttribute("user");
 		/* clean cookie */
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) {
@@ -58,7 +63,8 @@ public class LogoutServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect("index.jsp");
+		//response.sendRedirect("index.jsp");
+		response.sendRedirect(response.encodeRedirectURL((String)session.getAttribute("lastVisitUrl")));
 		
 	}
 

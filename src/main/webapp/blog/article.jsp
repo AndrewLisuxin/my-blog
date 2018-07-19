@@ -15,7 +15,7 @@
 <title>suxinli--${article.title }</title>
 </head>
 <body>
-<a href='<c:url value="/index.jsp"></c:url>'>Home</a>
+<%@ include file="/user/header.jsp" %>
 <article>
 <h3>${article.title }</h3>
 <h5>
@@ -25,7 +25,7 @@ views(${article.visit }) likes(${article.like })
 </h5>
 <form action='<c:url value="/LikeArticle"></c:url>' method="post">
 	<input type="submit" value="like"
-	<c:if test="${sessionScope.user eq null }">
+	<c:if test="${not logged}">
 		disabled
 	</c:if>
 	>
@@ -51,7 +51,7 @@ views(${article.visit }) likes(${article.like })
 		<br>
 		<img src="Profile?profile=${comment.user.image }" width="50" height="50">
 		<pre>${comment.content }</pre>
-		<c:if test="${sessionScope.user ne null and sessionScope.user.id eq comment.user.id}">
+		<c:if test="${logged and sessionScope.user.id eq comment.user.id}">
 			<form action="<c:url value='/DeleteComment?id=${comment.id }'/>" method="post">
 				<input type="submit" value="delete">
 			</form>
@@ -68,7 +68,7 @@ views(${article.visit }) likes(${article.like })
 
 
 <c:choose>
-	<c:when test="${sessionScope.user ne null }">
+	<c:when test="${logged}">
 		<form action='<c:url value="/CreateComment"></c:url>' method="post" id="comment">
 			<input type="submit" value="submit">
 		</form>
@@ -79,5 +79,6 @@ views(${article.visit }) likes(${article.like })
 	</c:otherwise>
 </c:choose>
 
+<%@ include file="/footer/footer.jsp" %>
 </body>
 </html>

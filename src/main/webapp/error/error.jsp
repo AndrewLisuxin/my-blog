@@ -24,6 +24,6 @@ while(e != null) {
 %>
 </div>
 
-<a href='<c:url value="/index.jsp"/>'>Home</a>
+<%@ include file="/footer/footer.jsp" %>
 </body>
 </html>

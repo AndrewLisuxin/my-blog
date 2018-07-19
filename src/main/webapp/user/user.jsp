@@ -9,7 +9,7 @@
 <title>User</title>
 </head>
 <body>
-<a href='<c:url value="/index.jsp"></c:url>'>Home</a>
+
 <hr/>
 
 <jsp:useBean id="user" class="com.suxinli.model.User" scope="session"/>
@@ -28,7 +28,7 @@
 	<input type="submit" value="update">
 </form>
 
-
+<%@ include file="/footer/footer.jsp" %>
 
 </body>
 </html>

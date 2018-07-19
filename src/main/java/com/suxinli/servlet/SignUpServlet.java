@@ -86,7 +86,7 @@ public class SignUpServlet extends HttpServlet {
 					user.updateImage();
 				}
 			}
-			response.sendRedirect(response.encodeRedirectURL("index.jsp"));
+			response.sendRedirect(response.encodeRedirectURL((String)request.getSession(false).getAttribute("lastVisitUrl")));
 		}
 		else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/signup.jsp");

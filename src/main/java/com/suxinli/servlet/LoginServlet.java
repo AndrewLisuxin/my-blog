@@ -48,12 +48,12 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		User user = User.checkUser(email, password);
-		
+		HttpSession session = request.getSession();
 		if(user != null) {
 			
 			/* set session, if 5 minutes in inactive, then invalidate it */
 			/* notice session cookie will be delete immediately after the browser is closed */
-			HttpSession session = request.getSession();
+			
 			session.setMaxInactiveInterval(5 * 60);
 			
 			/* the HttpSessionBindingListener will automatically login this user */
@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 		
 		
 		/* dispatcher */
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(((String)session.getAttribute("lastVisitUrl")).substring(8));
 		rd.include(request, response);
 		
 		
