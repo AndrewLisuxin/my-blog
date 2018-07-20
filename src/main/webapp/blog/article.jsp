@@ -44,13 +44,13 @@ views(${article.visit }) likes(${article.like })
 
 <h4>Comments</h4>
 <hr/>
-<!-- the jsp page is dispatchered from ViewArticleServlet, so the current dir is context root -->
+<%-- the jsp page is dispatchered from ViewArticleServlet, so the current dir is context root --%>
 <c:if test="${requestScope.comments ne null }">
 	<c:forEach items="${requestScope.comments }" var="comment">
 		<b>${comment.user.username }</b> <mytags:formatTime time="${comment.createTime }"/> from ${comment.user.city }
 		<br>
 		<img src="Profile?profile=${comment.user.image }" width="50" height="50">
-		<pre>${comment.content }</pre>
+		<pre><c:out value="${comment.content }"></c:out></pre>
 		<c:if test="${logged and sessionScope.user.id eq comment.user.id}">
 			<form action="<c:url value='/DeleteComment?id=${comment.id }'/>" method="post">
 				<input type="submit" value="delete">

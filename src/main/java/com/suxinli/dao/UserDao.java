@@ -111,6 +111,7 @@ public class UserDao extends BaseDao {
 		System.out.println(res.getString("image"));
 		
 		user.setCity(res.getString("city"));
+		System.out.println(res.getString("city") == null);
 		return user;
 	}
 	
