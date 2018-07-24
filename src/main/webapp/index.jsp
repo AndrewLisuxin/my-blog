@@ -17,12 +17,12 @@
 <body>
 <c:set var="lastVisitUrl" value="/my-blog/index.jsp" scope="session"></c:set>
 <!-- check if the user has logged in -->
-<%@ include file="/user/header.jsp" %>
+<%@ include file="/WEB-INF/header/header.jsp" %>
 
 <h3>Articles</h3>
 
 <c:if test="${isAdmin }">
-	<a href="<c:url value='/blog/newArticle.jsp'/>">write a new article</a>
+	<a href="<c:url value='/CreateArticle'/>">write a new article</a>
 </c:if>
 
 <ul>

@@ -11,8 +11,8 @@
 </head>
 
 <body>
-<a href='<c:url value="/index.jsp"></c:url>'>Home</a>
-<br>
+
+
 <form action='<c:url value="/UpdateArticle"></c:url>' method="post" id="article">
 title: <input type="text" name="title" value="${article.title }"required>
 <input type="submit" value="update">
@@ -20,5 +20,7 @@ title: <input type="text" name="title" value="${article.title }"required>
 <textarea rows="30" cols="300" name="content" form="article" required>
 	${article.content }
 </textarea>
+
+<%@ include file="/WEB-INF/footer/footer.jsp" %>
 </body>
 </html>

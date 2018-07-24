@@ -34,6 +34,7 @@
   	<filter-name>AutoLoginFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+<!--  
   <filter-mapping>
   	<filter-name>AdminFilter</filter-name>
   	<url-pattern>/blog/newArticle.jsp</url-pattern>
@@ -42,6 +43,7 @@
   	<filter-name>AdminFilter</filter-name>
   	<url-pattern>/blog/updateArticle.jsp</url-pattern>
   </filter-mapping>
+-->
   <filter-mapping>
   	<filter-name>AdminFilter</filter-name>
   	<servlet-name>CreateArticleServlet</servlet-name>
@@ -191,16 +193,16 @@
   	</welcome-file>
   </welcome-file-list>
   
-  <error-page>
+<error-page>
   	<error-code>404</error-code>
-  	<location>/error/error.jsp</location>
+  	<location>/WEB-INF/error/error.jsp</location>
   </error-page>
   
   <error-page>
   	<exception-type>java.lang.Exception</exception-type>
-  	<location>/error/error.jsp</location>
+  	<location>/WEB-INF/error/error.jsp</location>
   </error-page>
-  
+
   <jsp-config>
   	<taglib>
   		<taglib-uri>http://suxinli.com/jsp/tlds/mytags</taglib-uri>

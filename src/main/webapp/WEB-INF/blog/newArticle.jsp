@@ -8,7 +8,6 @@
 <title>New Article</title>
 </head>
 <body>
-<a href='<c:url value="/index.jsp"></c:url>'>Home</a>
 <br>
 <form action='<c:url value="/CreateArticle"></c:url>' method="post" id="article_form"> 
 title
@@ -17,5 +16,8 @@ title
 <input type="submit" value="save">
 </form>
 <textarea rows="70" cols="600" name="content" form="article_form" required></textarea>
+
+<%@ include file="/WEB-INF/footer/footer.jsp" %>
+
 </body>
 </html>

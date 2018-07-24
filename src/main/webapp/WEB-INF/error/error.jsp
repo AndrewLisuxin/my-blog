@@ -24,6 +24,6 @@ while(e != null) {
 %>
 </div>
 
-<%@ include file="/footer/footer.jsp" %>
+<%@ include file="/WEB-INF/footer/footer.jsp" %>
 </body>
 </html>

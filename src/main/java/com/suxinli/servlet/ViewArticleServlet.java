@@ -44,9 +44,11 @@ public class ViewArticleServlet extends HttpServlet {
 		int id = new Integer(request.getParameter("id"));
 		Article article = Article.searchArticle(id);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/blog/article.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/blog/article.jsp");
 		request.setAttribute("article", article);
 		HttpSession session = request.getSession(false);
+		System.out.println("session == null: " + (session == null));
+		
 		//if(session != null) {
 			session.setAttribute("article", article);
 		//}

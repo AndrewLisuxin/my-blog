@@ -16,7 +16,7 @@
 <title>suxinli--${article.title }</title>
 </head>
 <body>
-<%@ include file="/user/header.jsp" %>
+<%@ include file="/WEB-INF/header/header.jsp" %>
 <article>
 <h3>${article.title }</h3>
 <h5>
@@ -51,7 +51,7 @@ views(${article.visit }) likes(${article.like })
 	<c:forEach items="${requestScope.comments }" var="comment">
 		<b>${comment.user.username }</b> <fmt:formatDate pattern="${datePattern }" value="${comment.createTime }"/> from ${comment.user.city }
 		<br>
-		<img src="Profile?profile=${comment.user.image }" width="50" height="50">
+		<img src="/my-blog/Profile?profile=${comment.user.image }" width="50" height="50">
 		<pre><c:out value="${comment.content }"></c:out></pre>
 		<c:if test="${logged and sessionScope.user.id eq comment.user.id}">
 			<form action="
@@ -85,6 +85,6 @@ views(${article.visit }) likes(${article.like })
 	</c:otherwise>
 </c:choose>
 
-<%@ include file="/footer/footer.jsp" %>
+<%@ include file="/WEB-INF/footer/footer.jsp" %>
 </body>
 </html>

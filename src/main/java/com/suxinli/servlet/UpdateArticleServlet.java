@@ -37,7 +37,7 @@ public class UpdateArticleServlet extends HttpServlet {
 		Article article = Article.searchArticle(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("article", article);
 		request.getSession(false).setAttribute("article", article);
-		request.getRequestDispatcher("/blog/updateArticle.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/blog/updateArticle.jsp").forward(request, response);
 	}
 
 	/**

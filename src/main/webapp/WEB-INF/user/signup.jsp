@@ -27,6 +27,6 @@
 	<br>
 	<input type="submit" value="sign up">
 </form>
-<%@ include file="/footer/footer.jsp" %>
+<%@ include file="/WEB-INF/footer/footer.jsp" %>
 </body>
 </html>

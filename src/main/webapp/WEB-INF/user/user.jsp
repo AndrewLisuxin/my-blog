@@ -28,7 +28,7 @@
 	<input type="submit" value="update">
 </form>
 
-<%@ include file="/footer/footer.jsp" %>
+<%@ include file="/WEB-INF/footer/footer.jsp" %>
 
 </body>
 </html>

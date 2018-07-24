@@ -61,7 +61,8 @@ public class LoginServlet extends HttpServlet {
 			
 			if(user.isLogged()) {
 				/* previous logged */
-				session.invalidate();
+				//session.invalidate();
+				session.removeAttribute("user");
 				printRepeatedLoginMsg(out);
 			}
 			else {
