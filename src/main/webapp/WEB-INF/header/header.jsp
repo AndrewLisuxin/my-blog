@@ -5,7 +5,7 @@
 
 <c:choose>
 	<c:when test="${not logged }">
-		<form action="Login" method="post">
+		<form action="<c:url value="/Login"/>" method="post">
 		email: <input type="email" name="email" required>
 		password: <input type="password" name="password" required>
 		<input type="submit" value="log in">
