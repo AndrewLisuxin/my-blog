@@ -21,10 +21,28 @@ public class GZIPServletOutputStream extends ServletOutputStream {
 		internalGzipOS.write(b);
 	}
 	
+	@Override 
+	public void write(byte[] b,
+            int off,
+            int len)
+     throws IOException {
+		internalGzipOS.write(b, off, len);
+	}
+	
+	@Override
+	public void write(byte[] b)
+	           throws IOException {
+		internalGzipOS.write(b);
+	}
+	
 	public GZIPOutputStream getInternalOutputStream() {
 		return internalGzipOS;
 	}
-	
+	@Override
+	public void flush() throws IOException {
+		internalGzipOS.flush();
+	}
+	@Override
 	public void close() throws IOException {
 		/*
 		 * this GZIPServletOutputStream itself does NOT store data, no buffer, so no need to flush

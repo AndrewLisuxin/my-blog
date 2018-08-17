@@ -44,10 +44,16 @@ public class CompressionResponseWrapper extends HttpServletResponseWrapper {
 	public void close() throws IOException {
 		if(out != null) {
 			out.close();
+			out = null;
 		} else if(pw != null) {
 			pw.close();
+			pw = null;
 		}
 	}
-	
-	
+	@Override
+	public void flushBuffer() throws IOException {
+		System.out.println("flushBuffer");
+		super.flushBuffer();
+		
+	}
 }

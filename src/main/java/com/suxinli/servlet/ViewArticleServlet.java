@@ -56,7 +56,10 @@ public class ViewArticleServlet extends HttpServlet {
 		
 		List<Comment> comments = Comment.SearchCommentsByArticle(article);
 		request.setAttribute("comments", comments);
-		rd.forward(request, response);
+		/*
+		 * if include a resource that calls forward(), the compression will go wrong!?
+		 * */
+		rd.include(request, response);
 		
 	}
 
